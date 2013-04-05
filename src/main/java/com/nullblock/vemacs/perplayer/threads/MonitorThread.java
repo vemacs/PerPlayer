@@ -17,7 +17,7 @@ public class MonitorThread implements Runnable {
 	private int safe;
 	private int radius;
 	private int delay = 5;
-	private final static Logger LOGGER = Logger.getLogger(PerPlayer.class
+	private static Logger LOGGER = Logger.getLogger(PerPlayer.class
 			.getName());
 
 	public MonitorThread(int limit, int safe, int radius) {
