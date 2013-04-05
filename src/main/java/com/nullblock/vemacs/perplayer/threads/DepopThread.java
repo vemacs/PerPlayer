@@ -43,7 +43,7 @@ public class DepopThread implements Runnable {
 			if (nextentity != null && nextentity instanceof Monster) {
 				nextentity.remove();
 			}
-			entities.remove(nextentity);
+			remover.remove();
 		}
 	}
 
