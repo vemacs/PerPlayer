@@ -14,10 +14,12 @@ public class DepopThread implements Runnable {
 	private List<Entity> entities;
 	private int pass = 10;
 	private int delay = 1;
+	private String name;
 
-	public DepopThread(int safe, List<Entity> entities) {
+	public DepopThread(int safe, List<Entity> entities, String name) {
 		this.safe = safe;
 		this.entities = entities;
+		this.name = name;
 	}
 
 	public void run() {
@@ -30,6 +32,7 @@ public class DepopThread implements Runnable {
 				e.printStackTrace();
 			}
 		}
+		MonitorThread.LOGGER.info("Depopulation completed for " + name);
 		Thread.currentThread().interrupt();
 	}
 
