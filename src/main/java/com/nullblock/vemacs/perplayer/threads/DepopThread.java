@@ -14,14 +14,14 @@ public class DepopThread implements Runnable {
 	private List<Entity> entities;
 	private int pass = 10;
 	private int delay = 1;
-	
+
 	public DepopThread(int safe, List<Entity> entities) {
 		this.safe = safe;
 		this.entities = entities;
 	}
-	
+
 	public void run() {
-		while( entities.size() > safe ) {
+		while (entities.size() > safe) {
 			List<Entity> toremove = pickRandom(entities, pass);
 			depop(toremove);
 			try {
@@ -32,21 +32,21 @@ public class DepopThread implements Runnable {
 		}
 		Thread.currentThread().interrupt();
 	}
-	
+
 	public void depop(List<Entity> toremove) {
 		Iterator remover = entities.iterator();
-		while( remover.hasNext() ){
+		while (remover.hasNext()) {
 			Entity nextentity = (Entity) remover.next();
-			if( nextentity != null && nextentity instanceof Monster ){
+			if (nextentity != null && nextentity instanceof Monster) {
 				nextentity.remove();
-			} 
+			}
 			entities.remove(nextentity);
 		}
 	}
-	
+
 	public List<Entity> pickRandom(List<Entity> entities, int number) {
-	    List<Entity> copy = new LinkedList<Entity>(entities);
-	    Collections.shuffle(copy);
-	    return copy.subList(0, number);
+		List<Entity> copy = new LinkedList<Entity>(entities);
+		Collections.shuffle(copy);
+		return copy.subList(0, number);
 	}
 }
