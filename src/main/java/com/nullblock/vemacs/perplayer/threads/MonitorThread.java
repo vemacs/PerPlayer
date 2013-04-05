@@ -33,10 +33,10 @@ public class MonitorThread implements Runnable {
 				e.printStackTrace();
 			}
 			for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-				LOGGER.info("Checking " + player.getName());
+				//LOGGER.info("Checking " + player.getName());
 				List<Entity> entities = player.getNearbyEntities(radius,
 						radius, radius);
-				LOGGER.info(player.getName() + " has " + entities.size() + " entities");
+				//LOGGER.info(player.getName() + " has " + entities.size() + " entities");
 				Iterator cleanup = entities.iterator();
 				while (cleanup.hasNext()) {
 					Entity checked = (Entity) cleanup.next();
@@ -44,8 +44,8 @@ public class MonitorThread implements Runnable {
 						cleanup.remove();
 					}
 				}
-				LOGGER.info(player.getName() + " has " + entities.size() + " monsters");
-				LOGGER.info("Limit is " + limit + " monsters");
+				//LOGGER.info(player.getName() + " has " + entities.size() + " monsters");
+				//LOGGER.info("Limit is " + limit + " monsters");
 				if (entities.size() > limit) {
 					LOGGER.info(player.getName() + " hit the limit of " + limit
 							+ " monsters!");
