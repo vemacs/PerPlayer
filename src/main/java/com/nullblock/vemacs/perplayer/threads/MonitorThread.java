@@ -17,7 +17,7 @@ public class MonitorThread implements Runnable {
 	private int limit;
 	private int safe;
 	private int radius;
-	private int delay = 5;
+	private double delay = 0.2;
 	private int threadlimit = 3;
 	public static Logger LOGGER = Logger.getLogger(PerPlayer.class.getName());
 	public static HashMap threadcounter = new HashMap();
@@ -30,12 +30,12 @@ public class MonitorThread implements Runnable {
 
 	public void run() {
 		for (;;) {
-			try {
-				Thread.sleep(delay * 1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 			for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+				try {
+					Thread.sleep((long) (delay * 1000));
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				//LOGGER.info("Checking " + player.getName());
 				List<Entity> entities = player.getNearbyEntities(radius,
 						radius, radius);
