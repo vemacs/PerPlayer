@@ -1,0 +1,6 @@
+author: vemacs
+database: false
+description: Removes entities per player
+main: com.nullblock.vemacs.perplayer.PerPlayer
+name: PerPlayer
+version: '1.0'
