@@ -22,13 +22,13 @@ public class DepopThread implements Runnable {
 	
 	public void run() {
 		while( entities.size() > safe ) {
+			List<Entity> toremove = pickRandom(entities, pass);
+			depop(toremove);
 			try {
 				Thread.sleep(delay * 1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			List<Entity> toremove = pickRandom(entities, pass);
-			depop(toremove);
 		}
 	}
 	
