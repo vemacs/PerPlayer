@@ -54,7 +54,7 @@ public class MonitorThread implements Runnable {
 						threadcounter.put(player, 0);
 					}
 					LOGGER.info(player.getName() + " hit the limit of " + limit
-							+ " monsters!");
+							+ " monsters within a radius of " + radius + " blocks!");
 					if ((int) threadcounter.get(player) < threadlimit) {
 					new Thread(
 							new DepopThread(safe, entities, player))

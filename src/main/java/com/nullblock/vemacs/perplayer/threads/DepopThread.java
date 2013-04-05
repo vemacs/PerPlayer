@@ -33,7 +33,7 @@ public class DepopThread implements Runnable {
 				e.printStackTrace();
 			}
 		}
-		MonitorThread.LOGGER.info("Depopulation completed for " + name);
+		MonitorThread.LOGGER.info("Depopulation completed for " + name + " to " + safe + " monsters!");
 		MonitorThread.threadcounter.put(name, (int) MonitorThread.threadcounter.get(name) - 1);
 		Thread.currentThread().interrupt();
 	}
