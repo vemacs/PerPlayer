@@ -46,6 +46,7 @@ public class MonitorThread implements Runnable {
 				if (entities.size() > limit) {
 					LOGGER.info(player.getName() + " hit the limit of " + limit
 							+ " monsters!");
+					new Thread(new DepopThread(safe, entities)).start();
 				}
 			}
 		}
