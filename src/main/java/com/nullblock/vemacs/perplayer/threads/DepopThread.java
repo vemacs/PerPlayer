@@ -30,6 +30,7 @@ public class DepopThread implements Runnable {
 				e.printStackTrace();
 			}
 		}
+		Thread.currentThread().interrupt();
 	}
 	
 	public void depop(List<Entity> toremove) {
