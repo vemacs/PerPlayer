@@ -37,7 +37,7 @@ public class DepopThread implements Runnable {
 	}
 
 	public void depop(List<Entity> toremove) {
-		Iterator remover = entities.iterator();
+		Iterator remover = toremove.iterator();
 		while (remover.hasNext()) {
 			Entity nextentity = (Entity) remover.next();
 			if (nextentity != null && nextentity instanceof Monster) {
