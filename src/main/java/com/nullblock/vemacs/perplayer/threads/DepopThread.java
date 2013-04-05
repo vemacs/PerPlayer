@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
+import org.bukkit.entity.Player;
 
 public class DepopThread implements Runnable {
 
@@ -14,9 +15,9 @@ public class DepopThread implements Runnable {
 	private List<Entity> entities;
 	private int pass = 10;
 	private int delay = 1;
-	private String name;
+	private Player name;
 
-	public DepopThread(int safe, List<Entity> entities, String name) {
+	public DepopThread(int safe, List<Entity> entities, Player name) {
 		this.safe = safe;
 		this.entities = entities;
 		this.name = name;
@@ -33,6 +34,7 @@ public class DepopThread implements Runnable {
 			}
 		}
 		MonitorThread.LOGGER.info("Depopulation completed for " + name);
+		MonitorThread.threadcounter.put(name, (int) MonitorThread.threadcounter.get(name) - 1);
 		Thread.currentThread().interrupt();
 	}
 

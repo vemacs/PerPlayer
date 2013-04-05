@@ -1,5 +1,6 @@
 package com.nullblock.vemacs.perplayer.threads;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
@@ -17,8 +18,10 @@ public class MonitorThread implements Runnable {
 	private int safe;
 	private int radius;
 	private int delay = 5;
+	private int threadlimit = 3;
 	public static Logger LOGGER = Logger.getLogger(PerPlayer.class.getName());
-
+	public static HashMap threadcounter = new HashMap();
+	
 	public MonitorThread(int limit, int safe, int radius) {
 		this.limit = limit;
 		this.safe = safe;
@@ -47,11 +50,17 @@ public class MonitorThread implements Runnable {
 				//LOGGER.info(player.getName() + " has " + entities.size() + " monsters");
 				//LOGGER.info("Limit is " + limit + " monsters");
 				if (entities.size() > limit) {
+					if (!threadcounter.containsKey(player)) {
+						threadcounter.put(player, 0);
+					}
 					LOGGER.info(player.getName() + " hit the limit of " + limit
 							+ " monsters!");
+					if ((int) threadcounter.get(player) < threadlimit) {
 					new Thread(
-							new DepopThread(safe, entities, player.getName()))
+							new DepopThread(safe, entities, player))
 							.start();
+					threadcounter.put(player, (int) threadcounter.get(player) + 1);
+					}
 				}
 			}
 		}
