@@ -1,14 +1,10 @@
 package com.nullblock.vemacs.perplayer.threads;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -23,7 +19,7 @@ public class MonitorThread extends BukkitRunnable {
 	private double delay = 0.2;
 	private int threadlimit = 2;
 	public static Logger LOGGER = Logger.getLogger(PerPlayer.class.getName());
-	public static List<String> threadcounter = new ArrayList();
+	public static List<String> threadcounter = new CopyOnWriteArrayList();
 
 	public MonitorThread(int limit, int safe, int radius) {
 		this.limit = limit;
