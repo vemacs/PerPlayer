@@ -47,7 +47,10 @@ public class CheckPlayerTask extends BukkitRunnable {
 				.info(player.getName() + " hit the limit of " + limit
 						+ " monsters within a radius of " + radius
 						+ " blocks!");
-				for (int i = 0; i < Math.ceil((entities.size() - safe) / 10); i++) {
+				for (int i = 0; i < Math.ceil((entities.size() - safe) / (Bukkit
+						.getPluginManager()
+						.getPlugin("PerPlayer").getConfig()
+						.getInt("pass"))); i++) {
 					Bukkit.getServer()
 					.getScheduler()
 					.runTaskLater(
