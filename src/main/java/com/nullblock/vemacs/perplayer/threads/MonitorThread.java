@@ -39,7 +39,7 @@ public class MonitorThread extends BukkitRunnable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				Bukkit.getServer().getScheduler().runTask(Bukkit.getPluginManager().getPlugin("perplayer"), new CheckPlayerTask(player, radius, limit, safe));
+				Bukkit.getServer().getScheduler().runTask(Bukkit.getPluginManager().getPlugin("PerPlayer"), new CheckPlayerTask(player, radius, limit, safe));
 			}
 		}
 	}
