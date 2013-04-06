@@ -1,5 +1,6 @@
 package com.nullblock.vemacs.perplayer.threads;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -22,7 +23,7 @@ public class MonitorThread extends BukkitRunnable {
 	private double delay = 0.2;
 	private int threadlimit = 2;
 	public static Logger LOGGER = Logger.getLogger(PerPlayer.class.getName());
-	public static HashMap threadcounter = new HashMap();
+	public static List<Player> threadcounter = new ArrayList();
 	
 	public MonitorThread(int limit, int safe, int radius) {
 		this.limit = limit;
@@ -39,14 +40,10 @@ public class MonitorThread extends BukkitRunnable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				if(player != null) {
-				if(!threadcounter.containsKey(player)){
-					threadcounter.put(player, 0);
-				}
-				if((int)threadcounter.get(player) < threadlimit){
+				
+				if((!threadcounter.contains(player)) && player != null){
 				Bukkit.getServer().getScheduler().runTask(Bukkit.getPluginManager().getPlugin("PerPlayer"), new CheckPlayerTask(player, radius, limit, safe));
-				threadcounter.put(player, (int) threadcounter.get(player) + 1);
-				}
+				threadcounter.add(player);
 				}
 			}	
 		}

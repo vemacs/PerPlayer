@@ -45,7 +45,7 @@ public class CheckPlayerTask extends BukkitRunnable {
 			for(int i = 0; i < Math.ceil((entities.size() - safe) / 10); i++) {
 				Bukkit.getServer().getScheduler().runTaskLater(Bukkit.getPluginManager().getPlugin("PerPlayer"), new DepopTask(entities, pass), delaytick * i);
 			}
-			MonitorThread.threadcounter.put(player, (int) MonitorThread.threadcounter.get(player) - 1);
+			Bukkit.getServer().getScheduler().runTaskLater(Bukkit.getPluginManager().getPlugin("PerPlayer"), new RemoveList(player), (long) (delaytick * Math.ceil((entities.size() - safe) / 10)));
 		}
 	}
 }
