@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.nullblock.vemacs.perplayer.PerPlayer;
+import com.nullblock.vemacs.perplayer.threads.MonitorThread;
 
 public class CheckPlayerTask extends BukkitRunnable {
 
@@ -44,6 +45,7 @@ public class CheckPlayerTask extends BukkitRunnable {
 			for(int i = 0; i < Math.ceil((entities.size() - safe) / 10); i++) {
 				Bukkit.getServer().getScheduler().runTaskLater(Bukkit.getPluginManager().getPlugin("PerPlayer"), new DepopTask(entities, pass), delaytick * i);
 			}
+			MonitorThread.threadcounter.put(player, (int) MonitorThread.threadcounter.get(player) - 1);
 		}
 	}
 }
