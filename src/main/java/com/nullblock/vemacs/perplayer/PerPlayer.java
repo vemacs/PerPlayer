@@ -24,6 +24,10 @@ public class PerPlayer extends JavaPlugin implements Listener {
 		int safe = this.getConfig().getInt("safe");
 		int radius = this.getConfig().getInt("radius");
 		// start thread
-		new Thread(new MonitorThread(limit, safe, radius)).start();
+		Bukkit.getServer()
+				.getScheduler()
+				.runTaskAsynchronously(
+						Bukkit.getPluginManager().getPlugin("PerPlayer"),
+						new MonitorThread(limit, safe, radius));
 	}
 }
