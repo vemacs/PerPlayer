@@ -23,7 +23,7 @@ public class MonitorThread extends BukkitRunnable {
 	private double delay = 0.2;
 	private int threadlimit = 2;
 	public static Logger LOGGER = Logger.getLogger(PerPlayer.class.getName());
-	public static List<Player> threadcounter = new ArrayList();
+	public static List<String> threadcounter = new ArrayList();
 	
 	public MonitorThread(int limit, int safe, int radius) {
 		this.limit = limit;
@@ -40,11 +40,7 @@ public class MonitorThread extends BukkitRunnable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				
-				if((!threadcounter.contains(player)) && player != null){
 				Bukkit.getServer().getScheduler().runTask(Bukkit.getPluginManager().getPlugin("PerPlayer"), new CheckPlayerTask(player, radius, limit, safe));
-				threadcounter.add(player);
-				}
 			}	
 		}
 	}
