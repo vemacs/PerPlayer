@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.nullblock.vemacs.perplayer.threads.MonitorThread;
 
 public class PerPlayer extends JavaPlugin implements Listener {
-	
+
 	public void onDisable() {
 		// TODO: Place any custom disable code here.
 	}

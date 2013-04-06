@@ -10,7 +10,7 @@ import org.bukkit.entity.Monster;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class DepopTask extends BukkitRunnable {
-	
+
 	private List<Entity> entities;
 	private int pass;
 
@@ -18,13 +18,12 @@ public class DepopTask extends BukkitRunnable {
 		this.entities = entities;
 		this.pass = pass;
 	}
-	
-	
+
 	public void run() {
 		List<Entity> toremove = pickRandom(entities, pass);
 		depop(toremove);
 	}
-	
+
 	public void depop(List<Entity> toremove) {
 		Iterator remover = toremove.iterator();
 		while (remover.hasNext()) {

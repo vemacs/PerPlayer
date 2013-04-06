@@ -24,7 +24,7 @@ public class MonitorThread extends BukkitRunnable {
 	private int threadlimit = 2;
 	public static Logger LOGGER = Logger.getLogger(PerPlayer.class.getName());
 	public static List<String> threadcounter = new ArrayList();
-	
+
 	public MonitorThread(int limit, int safe, int radius) {
 		this.limit = limit;
 		this.safe = safe;
@@ -40,8 +40,13 @@ public class MonitorThread extends BukkitRunnable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				Bukkit.getServer().getScheduler().runTask(Bukkit.getPluginManager().getPlugin("PerPlayer"), new CheckPlayerTask(player, radius, limit, safe));
-			}	
+				Bukkit.getServer()
+						.getScheduler()
+						.runTask(
+								Bukkit.getPluginManager()
+										.getPlugin("PerPlayer"),
+								new CheckPlayerTask(player, radius, limit, safe));
+			}
 		}
 	}
 }

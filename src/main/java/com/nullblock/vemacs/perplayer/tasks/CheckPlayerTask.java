@@ -29,37 +29,42 @@ public class CheckPlayerTask extends BukkitRunnable {
 	}
 
 	public void run() {
-		List<Entity> entities = player
-				.getNearbyEntities(radius, radius, radius);
-		Iterator cleanup = entities.iterator();
-		while (cleanup.hasNext()) {
-			Entity checked = (Entity) cleanup.next();
-			if (!(checked instanceof Monster)) {
-				cleanup.remove();
+		if ((!MonitorThread.threadcounter.contains(player.getName()))
+				&& (!(player == null))) {
+			List<Entity> entities = player.getNearbyEntities(radius, radius,
+					radius);
+			Iterator cleanup = entities.iterator();
+			while (cleanup.hasNext()) {
+				Entity checked = (Entity) cleanup.next();
+				if (!(checked instanceof Monster)) {
+					cleanup.remove();
+				}
 			}
-		}
-		if (entities.size() > limit && (!MonitorThread.threadcounter.contains(player.getName())) && (!(player == null))) {
-			Bukkit.getPluginManager()
-					.getPlugin("PerPlayer")
-					.getLogger()
-					.info(player.getName() + " hit the limit of " + limit
-							+ " monsters within a radius of " + radius
-							+ " blocks!");
-			for (int i = 0; i < Math.ceil((entities.size() - safe) / 10); i++) {
+			if (entities.size() > limit) {
+				Bukkit.getPluginManager()
+						.getPlugin("PerPlayer")
+						.getLogger()
+						.info(player.getName() + " hit the limit of " + limit
+								+ " monsters within a radius of " + radius
+								+ " blocks!");
+				for (int i = 0; i < Math.ceil((entities.size() - safe) / 10); i++) {
+					Bukkit.getServer()
+							.getScheduler()
+							.runTaskLater(
+									Bukkit.getPluginManager().getPlugin(
+											"PerPlayer"),
+									new DepopTask(entities, pass),
+									delaytick * i);
+				}
+				MonitorThread.threadcounter.add(player.getName());
 				Bukkit.getServer()
 						.getScheduler()
 						.runTaskLater(
 								Bukkit.getPluginManager()
 										.getPlugin("PerPlayer"),
-								new DepopTask(entities, pass), delaytick * i);
+								new RemoveList(player),
+								(long) (delaytick * Math.ceil((entities.size() - safe))) / 10);
 			}
-			MonitorThread.threadcounter.add(player.getName());
-			Bukkit.getServer()
-					.getScheduler()
-					.runTaskLater(
-							Bukkit.getPluginManager().getPlugin("PerPlayer"),
-							new RemoveList(player),
-							(long) (delaytick * Math.ceil((entities.size() - safe))) / 10);
 		}
 	}
 }
