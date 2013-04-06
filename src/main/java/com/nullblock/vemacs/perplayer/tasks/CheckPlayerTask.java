@@ -39,10 +39,10 @@ public class CheckPlayerTask extends BukkitRunnable {
 			}
 		}
 		if (entities.size() > limit) {
-			PerPlayer.PerPlayer.getLogger().info(player.getName() + " hit the limit of " + limit
+			Bukkit.getPluginManager().getPlugin("perplayer").getLogger().info(player.getName() + " hit the limit of " + limit
 							+ " monsters within a radius of " + radius + " blocks!");
 			for(int i = 0; i < Math.ceil((entities.size() - safe) / 10); i++) {
-				Bukkit.getServer().getScheduler().runTaskLater(PerPlayer.PerPlayer, new DepopTask(entities, pass), delaytick * i);
+				Bukkit.getServer().getScheduler().runTaskLater(Bukkit.getPluginManager().getPlugin("perplayer"), new DepopTask(entities, pass), delaytick * i);
 			}
 		}
 	}
