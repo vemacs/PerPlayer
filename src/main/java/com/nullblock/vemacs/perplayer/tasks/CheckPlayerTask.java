@@ -18,7 +18,7 @@ public class CheckPlayerTask extends BukkitRunnable {
 	private int radius;
 	private int limit;
 	private int safe;
-	private int pass = 10;
+	private int pass;
 	private int delaytick = 20;
 
 	public CheckPlayerTask(Player player, int radius, int limit, int safe) {
@@ -42,28 +42,30 @@ public class CheckPlayerTask extends BukkitRunnable {
 			}
 			if (entities.size() > limit) {
 				Bukkit.getPluginManager()
-						.getPlugin("PerPlayer")
-						.getLogger()
-						.info(player.getName() + " hit the limit of " + limit
-								+ " monsters within a radius of " + radius
-								+ " blocks!");
+				.getPlugin("PerPlayer")
+				.getLogger()
+				.info(player.getName() + " hit the limit of " + limit
+						+ " monsters within a radius of " + radius
+						+ " blocks!");
 				for (int i = 0; i < Math.ceil((entities.size() - safe) / 10); i++) {
 					Bukkit.getServer()
-							.getScheduler()
-							.runTaskLater(
-									Bukkit.getPluginManager().getPlugin(
-											"PerPlayer"),
-									new DepopTask(entities, pass),
-									delaytick * i);
+					.getScheduler()
+					.runTaskLater(
+							Bukkit.getPluginManager().getPlugin(
+									"PerPlayer"),
+									new DepopTask(entities, Bukkit
+											.getPluginManager()
+											.getPlugin("PerPlayer").getConfig()
+											.getInt("pass")), delaytick * i);
 				}
 				MonitorThread.threadcounter.add(player.getName());
 				Bukkit.getServer()
-						.getScheduler()
-						.runTaskLater(
-								Bukkit.getPluginManager()
-										.getPlugin("PerPlayer"),
-								new RemoveList(player),
-								(long) (delaytick * Math.ceil((entities.size() - safe))) / 10);
+				.getScheduler()
+				.runTaskLater(
+						Bukkit.getPluginManager()
+						.getPlugin("PerPlayer"),
+						new RemoveList(player),
+						(long) (delaytick * Math.ceil((entities.size() - safe))) / 10);
 			}
 		}
 	}
