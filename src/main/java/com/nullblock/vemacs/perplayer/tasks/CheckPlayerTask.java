@@ -68,7 +68,10 @@ public class CheckPlayerTask extends BukkitRunnable {
 						Bukkit.getPluginManager()
 						.getPlugin("PerPlayer"),
 						new RemoveList(player),
-						(long) (delaytick * Math.ceil((entities.size() - safe))) / 10);
+						(long) (delaytick * Math.ceil(((entities.size() - safe)) / (Bukkit
+								.getPluginManager()
+								.getPlugin("PerPlayer").getConfig()
+								.getInt("pass")))));
 			}
 		}
 	}
