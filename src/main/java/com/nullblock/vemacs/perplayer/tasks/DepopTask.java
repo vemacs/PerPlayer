@@ -1,4 +1,4 @@
-package com.nullblock.vemacs.perplayer.threads;
+package com.nullblock.vemacs.perplayer.tasks;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -7,38 +7,24 @@ import java.util.List;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class DepopThread extends BukkitRunnable {
-
-	private int safe;
+public class DepopTask extends BukkitRunnable {
+	
 	private List<Entity> entities;
-	private int pass = 10;
-	private int delay = 1;
-	private Player name;
+	private int pass;
 
-	public DepopThread(int safe, List<Entity> entities, Player name) {
-		this.safe = safe;
+	public DepopTask(List<Entity> entities, int pass) {
 		this.entities = entities;
-		this.name = name;
+		this.pass = pass;
 	}
-
+	
+	
 	public void run() {
-		while (entities.size() > safe) {
-			List<Entity> toremove = pickRandom(entities, pass);
-			depop(toremove);
-			try {
-				Thread.sleep(delay * 1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		MonitorThread.LOGGER.info("Depopulation completed for " + name + " to " + safe + " monsters!");
-		MonitorThread.threadcounter.put(name, (int) MonitorThread.threadcounter.get(name) - 1);
-		Thread.currentThread().interrupt();
+		List<Entity> toremove = pickRandom(entities, pass);
+		depop(toremove);
 	}
-
+	
 	public void depop(List<Entity> toremove) {
 		Iterator remover = toremove.iterator();
 		while (remover.hasNext()) {
