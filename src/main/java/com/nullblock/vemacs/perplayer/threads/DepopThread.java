@@ -8,8 +8,9 @@ import java.util.List;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
-public class DepopThread implements Runnable {
+public class DepopThread extends BukkitRunnable {
 
 	private int safe;
 	private List<Entity> entities;

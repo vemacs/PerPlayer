@@ -9,10 +9,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.nullblock.vemacs.perplayer.PerPlayer;
 
-public class MonitorThread implements Runnable {
+public class MonitorThread extends BukkitRunnable {
 
 	private int limit;
 	private int safe;
