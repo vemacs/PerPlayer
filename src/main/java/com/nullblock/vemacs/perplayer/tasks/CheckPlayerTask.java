@@ -20,7 +20,7 @@ public class CheckPlayerTask extends BukkitRunnable {
 	private int safe;
 	private int pass;
 	private int delaytick = 20;
-	private int maxpass = Bukkit.getPluginManager().getPlugin("PerPlayer")
+	public int maxpass = Bukkit.getPluginManager().getPlugin("PerPlayer")
 			.getConfig().getInt("maxpass");
 
 	public CheckPlayerTask(Player player, int radius, int limit, int safe) {
