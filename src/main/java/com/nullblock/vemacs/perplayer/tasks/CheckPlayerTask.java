@@ -31,6 +31,10 @@ public class CheckPlayerTask extends BukkitRunnable {
 	}
 
 	public void run() {
+		if(!MonitorThread.threadcounter.containsKey(player.getName())){
+			MonitorThread.threadcounter.put(player.getName(), 0 );
+		}
+		
 		if ( (!(player == null)) && ((int) MonitorThread.threadcounter.get(player.getName()) < maxpass)) {
 			List<Entity> entities = player.getNearbyEntities(radius, radius,
 					radius);
