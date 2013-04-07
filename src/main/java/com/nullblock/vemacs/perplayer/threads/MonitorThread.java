@@ -1,6 +1,8 @@
 package com.nullblock.vemacs.perplayer.threads;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
@@ -19,7 +21,7 @@ public class MonitorThread extends BukkitRunnable {
 	private double delay = 0.2;
 	private int threadlimit = 2;
 	public static Logger LOGGER = Logger.getLogger(PerPlayer.class.getName());
-	public static List<String> threadcounter = new CopyOnWriteArrayList();
+	public static ConcurrentHashMap threadcounter = new ConcurrentHashMap();
 
 	public MonitorThread(int limit, int safe, int radius) {
 		this.limit = limit;

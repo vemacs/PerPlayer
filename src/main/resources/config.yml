@@ -1,4 +1,5 @@
-radius: 72
+radius: 42
 limit: 216
 safe: 180
 pass: 20
+maxpass: 3

@@ -20,6 +20,8 @@ public class CheckPlayerTask extends BukkitRunnable {
 	private int safe;
 	private int pass;
 	private int delaytick = 20;
+	private int maxpass = Bukkit.getPluginManager().getPlugin("PerPlayer")
+			.getConfig().getInt("maxpass");
 
 	public CheckPlayerTask(Player player, int radius, int limit, int safe) {
 		this.player = player;
@@ -29,8 +31,7 @@ public class CheckPlayerTask extends BukkitRunnable {
 	}
 
 	public void run() {
-		if ((!MonitorThread.threadcounter.contains(player.getName()))
-				&& (!(player == null))) {
+		if ( (!(player == null)) && ((int) MonitorThread.threadcounter.get(player.getName()) < maxpass)) {
 			List<Entity> entities = player.getNearbyEntities(radius, radius,
 					radius);
 			Iterator cleanup = entities.iterator();
@@ -42,36 +43,35 @@ public class CheckPlayerTask extends BukkitRunnable {
 			}
 			if (entities.size() > limit) {
 				Bukkit.getPluginManager()
-				.getPlugin("PerPlayer")
-				.getLogger()
-				.info(player.getName() + " hit the limit of " + limit
-						+ " monsters within a radius of " + radius
-						+ " blocks!");
-				for (int i = 0; i < Math.ceil((entities.size() - safe) / (Bukkit
-						.getPluginManager()
-						.getPlugin("PerPlayer").getConfig()
-						.getInt("pass"))); i++) {
+						.getPlugin("PerPlayer")
+						.getLogger()
+						.info(player.getName() + " hit the limit of " + limit
+								+ " monsters within a radius of " + radius
+								+ " blocks!");
+				for (int i = 0; i < Math.ceil((entities.size() - safe)
+						/ (Bukkit.getPluginManager().getPlugin("PerPlayer")
+								.getConfig().getInt("pass"))); i++) {
 					Bukkit.getServer()
-					.getScheduler()
-					.runTaskLater(
-							Bukkit.getPluginManager().getPlugin(
-									"PerPlayer"),
+							.getScheduler()
+							.runTaskLater(
+									Bukkit.getPluginManager().getPlugin(
+											"PerPlayer"),
 									new DepopTask(entities, Bukkit
 											.getPluginManager()
 											.getPlugin("PerPlayer").getConfig()
 											.getInt("pass")), delaytick * i);
 				}
-				MonitorThread.threadcounter.add(player.getName());
+				MonitorThread.threadcounter.put(player.getName(), (int) MonitorThread.threadcounter.get(player.getName()) + 1 );
 				Bukkit.getServer()
-				.getScheduler()
-				.runTaskLater(
-						Bukkit.getPluginManager()
-						.getPlugin("PerPlayer"),
-						new RemoveList(player),
-						(long) (delaytick * Math.ceil(((entities.size() - safe)) / (Bukkit
-								.getPluginManager()
-								.getPlugin("PerPlayer").getConfig()
-								.getInt("pass")))));
+						.getScheduler()
+						.runTaskLater(
+								Bukkit.getPluginManager()
+										.getPlugin("PerPlayer"),
+								new RemoveList(player),
+								(long) (delaytick * Math.ceil(((entities.size() - safe))
+										/ (Bukkit.getPluginManager()
+												.getPlugin("PerPlayer")
+												.getConfig().getInt("pass")))));
 			}
 		}
 	}

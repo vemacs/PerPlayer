@@ -14,7 +14,7 @@ public class RemoveList extends BukkitRunnable {
 	}
 
 	public void run() {
-		MonitorThread.threadcounter.remove(player.getName());
+		MonitorThread.threadcounter.put(player.getName(), (int) MonitorThread.threadcounter.get(player.getName()) - 1 );
 		MonitorThread.LOGGER.info("Depopulation completed for "
 				+ player.getName());
 	}
